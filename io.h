@@ -8,11 +8,14 @@
 #include <string>
 #include <vector>
 
+#include "atom.h"
+#include "timestep.h"
+
 using namespace std;
 
 namespace io {
-  vector<vector<XYZ>> readXYZ(string);
-  void writeVTK(vector<vector<XYZ>>);
+  vector<Timestep> readXYZ(string);
+  void writeVTK(vector<Timestep>);
 }
 
 #endif
