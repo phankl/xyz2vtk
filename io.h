@@ -10,6 +10,7 @@
 
 #include "atom.h"
 #include "timestep.h"
+#include "xyz.h"
 
 using namespace std;
 

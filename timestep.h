@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "atom.h"
+#include "xyz.h"
 
 using namespace std;
 
@@ -11,16 +12,12 @@ struct Timestep {
   public:
     int atomNumber;
     
-    double xMin;
-    double xMax;
-    double yMin;
-    double yMax;
-    double zMin;
-    double zMax;
+    XYZ xyzMin;
+    XYZ xyzMax;
 
     vector<Atom> atomData;
 
-    Timestep(int, double, double, double, double, double, double, vector<Atom>);
+    Timestep(int, XYZ, XYZ, vector<Atom>);
 };
 
 #endif

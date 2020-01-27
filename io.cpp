@@ -40,7 +40,7 @@ vector<Timestep> readXYZ(string xyzFileName)
       double x = stod(words[1]);
       double y = stod(words[2]);
       double z = stod(words[3]);
-      Atom atom(type,x,y,z);
+      Atom atom(type,XYZ(x,y,z));
       stepAtoms.push_back(atom);
 
       if (x < xMin) xMin = x;
@@ -55,7 +55,7 @@ vector<Timestep> readXYZ(string xyzFileName)
       // start new timestep unless first
 
       if (!first) {
-        Timestep timestep(atomNumber,xMin,xMax,yMin,yMax,zMin,zMax,stepAtoms);
+        Timestep timestep(atomNumber,XYZ(xMin,yMin,zMin),XYZ(xMax,yMax,zMax),stepAtoms);
         allSteps.push_back(timestep);
 
         xMin = MAX;
@@ -71,7 +71,7 @@ vector<Timestep> readXYZ(string xyzFileName)
     }
   }
 
-  Timestep timestep(atomNumber,xMin,xMax,yMin,yMax,zMin,zMax,stepAtoms);
+  Timestep timestep(atomNumber,XYZ(xMin,yMin,zMin),XYZ(xMax,yMax,zMax),stepAtoms);
   allSteps.push_back(timestep);
   
   file.close();
@@ -94,7 +94,9 @@ void writeVTK(vector<Timestep> atomData, string vtkFileName)
   file << "DATASET POLYDATA" << endl;
   file << endl;
 
-  // 
+  // data
+  // first node
+  
 
   file.close();
 }

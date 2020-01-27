@@ -1,9 +1,7 @@
 #include "atom.h"
 
-Atom::Atom(int newType, double newX, double newY, double newZ) :
+Atom::Atom(int newType, XYZ newXYZ) :
   type(newType),
-  x(newX),
-  y(newY),
-  z(newZ) 
+  xyz(newXYZ)
 {
 }

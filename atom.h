@@ -3,15 +3,15 @@
 
 #include <cmath>
 
+#include "xyz.h"
+
 struct Atom {
   public:
     int type;
 
-    double x;
-    double y;
-    double z;
+    XYZ xyz;
 
-    Atom(int, double, double, double);
+    Atom(int, XYZ);
 };
     
 #endif
