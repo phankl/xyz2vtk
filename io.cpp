@@ -76,12 +76,27 @@ vector<Timestep> readXYZ(string xyzFileName)
   
   file.close();
 
+  cout << "Finished reading XYZ file " << xyzFileName << "." << endl;
+  cout << "Found total number of " << allSteps.size() << " time steps." << endl;
+
   return allSteps;
 }
 
-void writeVTK(vector<Timestep> atomData)
+void writeVTK(vector<Timestep> atomData, string vtkFileName)
 {
+  ofstream file(vtkFileName);
 
+  // header
+
+  file << "# vtk DataFile Version 8.2" << endl;
+  file << "Mesoscopic carbon nanotube data" << endl;
+  file << "ASCII" << endl;
+  file << "DATASET POLYDATA" << endl;
+  file << endl;
+
+  // 
+
+  file.close();
 }
 
 }

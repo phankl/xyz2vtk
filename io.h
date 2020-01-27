@@ -15,7 +15,7 @@ using namespace std;
 
 namespace io {
   vector<Timestep> readXYZ(string);
-  void writeVTK(vector<Timestep>);
+  void writeVTK(vector<Timestep>, string);
 }
 
 #endif
