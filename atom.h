@@ -7,11 +7,11 @@
 
 struct Atom {
   public:
-    int type;
-
+    int mol;
     XYZ xyz;
+    double data;
 
-    Atom(int, XYZ);
+    Atom(int, XYZ, double);
 };
     
 #endif

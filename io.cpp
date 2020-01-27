@@ -35,12 +35,13 @@ vector<Timestep> readXYZ(string xyzFileName)
     
     while (getline(check,token,' ')) words.push_back(token);
 
-    if (words.size() == 4) {
-      int type = stoi(words[0]);
+    if (words.size() == 5) {
+      int mol = stoi(words[0]);
       double x = stod(words[1]);
       double y = stod(words[2]);
       double z = stod(words[3]);
-      Atom atom(type,XYZ(x,y,z));
+      double data = stod(words[4]);
+      Atom atom(mol,XYZ(x,y,z),data);
       stepAtoms.push_back(atom);
 
       if (x < xMin) xMin = x;

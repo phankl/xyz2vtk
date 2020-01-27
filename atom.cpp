@@ -1,7 +1,8 @@
 #include "atom.h"
 
-Atom::Atom(int newType, XYZ newXYZ) :
-  type(newType),
-  xyz(newXYZ)
+Atom::Atom(int newMol, XYZ newXYZ, double newData) :
+  mol(newMol),
+  xyz(newXYZ),
+  data(newData)
 {
 }
