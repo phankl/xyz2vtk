@@ -45,6 +45,7 @@ vector<Timestep> readXYZ(string xyzFileName)
       double z = stod(words[3]);
       double data = stod(words[4]);
       Atom atom(mol,XYZ(x,y,z),data);
+      stepAtoms.push_back(atom);
       
       // check if mol is new
       vector<int>::iterator it = find(stepMols.begin(),stepMols.end(),mol);
@@ -112,6 +113,7 @@ vector<Timestep> readXYZ(string xyzFileName)
 
 void writeVTK(int polygonSides, double radius, const vector<Timestep>& timesteps, string vtkFileName)
 {
+  #pragma omp parallel for
   for (int i = 0; i < timesteps.size(); i++) {
     Timestep timestep = timesteps[i];
     vector<Atom> atoms = timestep.atoms;
