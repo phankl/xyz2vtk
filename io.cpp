@@ -1,7 +1,5 @@
 #include "io.h"
 
-#define MAX 1.0e300
-
 using namespace std;
 
 namespace io {
@@ -12,17 +10,21 @@ vector<Timestep> readXYZ(string xyzFileName)
 
   ifstream file(xyzFileName);
 
+  int stepNumber;
   int atomNumber;
-  double xMin = MAX;
-  double xMax = -MAX;
-  double yMin = MAX;
-  double yMax = -MAX;
-  double zMin = MAX;
-  double zMax = -MAX;
+
+  double xMin,yMin,zMin;
+  double xMax,yMax,zMax;
   
   string line;
   vector<Atom> stepAtoms;
   bool first = true;
+  bool step = true;
+  bool number = false;
+  bool box = false;
+  bool xDimension = true;
+  bool yDimension = false;
+  bool zDimension = false;
 
   // iterate over all lines in file
 
@@ -43,36 +45,53 @@ vector<Timestep> readXYZ(string xyzFileName)
       double data = stod(words[4]);
       Atom atom(mol,XYZ(x,y,z),data);
       stepAtoms.push_back(atom);
-
-      if (x < xMin) xMin = x;
-      if (x > xMax) xMax = x;
-      if (y < yMin) yMin = y;
-      if (y > yMax) yMax = y;
-      if (z < zMin) zMin = z;
-      if (z > zMax) zMax = z;
+    }
+    else if (words.size() == 2 && box) {
+      if (xDimension) {
+        xMin = stod(words[0]);
+        xMax = stod(words[1]);
+        xDimension = false;
+        yDimension = true;
+      }
+      else if (yDimension) {
+        yMin = stod(words[0]);
+        yMax = stod(words[1]);
+        yDimension = false;
+        zDimension = true;
+      }
+      else if (zDimension) {
+        zMin = stod(words[0]);
+        zMax = stod(words[1]);
+        zDimension = false;
+        xDimension = true;
+        box = false;
+        step = true;
+      }
     }
     else if (words.size() == 1) {
+      if (step) {
 
-      // start new timestep unless first
+        // start new timestep unless first
+        
+        if (!first) {
+          Timestep timestep(stepNumber,atomNumber,XYZ(xMin,yMin,zMin),XYZ(xMax,yMax,zMax),stepAtoms);
+          allSteps.push_back(timestep);
+        }
+        else first = false;
 
-      if (!first) {
-        Timestep timestep(atomNumber,XYZ(xMin,yMin,zMin),XYZ(xMax,yMax,zMax),stepAtoms);
-        allSteps.push_back(timestep);
-
-        xMin = MAX;
-        xMax = -MAX;
-        yMin = MAX;
-        yMax = -MAX;
-        yMin = MAX;
-        yMax = -MAX;
+        stepNumber = stoi(words[0]);
+        step = false;
+        number = true;
       }
-      else first = false;
-      
-      atomNumber = stoi(words[0]);
+      else if (number) { 
+        atomNumber = stoi(words[0]);
+        number = false;
+        box = true;
+      }
     }
   }
 
-  Timestep timestep(atomNumber,XYZ(xMin,yMin,zMin),XYZ(xMax,yMax,zMax),stepAtoms);
+  Timestep timestep(stepNumber,atomNumber,XYZ(xMin,yMin,zMin),XYZ(xMax,yMax,zMax),stepAtoms);
   allSteps.push_back(timestep);
   
   file.close();

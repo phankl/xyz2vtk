@@ -10,6 +10,7 @@ using namespace std;
 
 struct Timestep {
   public:
+    int stepNumber;
     int atomNumber;
     
     XYZ xyzMin;
@@ -17,7 +18,7 @@ struct Timestep {
 
     vector<Atom> atomData;
 
-    Timestep(int, XYZ, XYZ, vector<Atom>);
+    Timestep(int, int, XYZ, XYZ, vector<Atom>);
 };
 
 #endif
