@@ -1,13 +1,14 @@
 #include "timestep.h"
 
-Timestep::Timestep(int stepNumberNew, int atomNumberNew,
+Timestep::Timestep(int stepNumberNew, int atomNumberNew, int molNumberNew,
                    XYZ xyzMinNew, XYZ xyzMaxNew, 
-                   vector<Atom> atomDataNew
+                   vector<Atom> atomsNew
                    ) :
   stepNumber(stepNumberNew),
   atomNumber(atomNumberNew),
+  molNumber(molNumberNew),
   xyzMin(xyzMinNew),
   xyzMax(xyzMaxNew),
-  atomData(atomDataNew)
+  atoms(atomsNew)
 {
 }

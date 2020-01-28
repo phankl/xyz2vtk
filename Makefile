@@ -1,7 +1,7 @@
 #Makefile to compile the xyz2vtk tool
 
 CXX = g++
-CXXFLAGS = -O2 -g -std=c++11
+CXXFLAGS = -O2 -g -fopenmp -std=c++11
 
 MAIN = xyz2vtk
 

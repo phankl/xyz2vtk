@@ -12,13 +12,14 @@ struct Timestep {
   public:
     int stepNumber;
     int atomNumber;
-    
+    int molNumber;
+
     XYZ xyzMin;
     XYZ xyzMax;
 
-    vector<Atom> atomData;
+    vector<Atom> atoms;
 
-    Timestep(int, int, XYZ, XYZ, vector<Atom>);
+    Timestep(int, int, int, XYZ, XYZ, vector<Atom>);
 };
 
 #endif
